@@ -1,0 +1,38 @@
+type QueryResolver {
+    #getNotificationDetails(symbol: String): ExchangeNotification
+}
+
+type SubscriptionResolver {
+ #getNotifications(exchangeCode: String,exchangeName: String): ExchangeNotification
+ getNotifications(filter: ExchangeNotificationFilter): ExchangeNotification
+}
+
+
+type MutationResolver {
+	#registerForExchange(clientName: String!, exChangeRequested: [String!]!):ExchangeNotificationFilter
+}
+
+
+
+type ExchangeNotification{
+	exchangeCode: String!
+   	exchangeName: String!
+	segmentMic: String!
+	newExchangeCode: String!
+	eventInsertDate: String! #range
+	eventSubject: String!
+	eventSummaryText: String!
+	eventInsertDate: String!
+	eventSubject: String!
+}
+
+input ExchangeNotificationFilter {
+	exchangeCode: [String]
+	segmentMic: [String] 	
+}
+
+schema {
+  query: QueryResolver
+ # mutation: MutationResolver
+  subscription: SubscriptionResolver
+}
